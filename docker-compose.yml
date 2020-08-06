@@ -1,0 +1,20 @@
+version: "3.4"
+services:
+  node:
+    container_name: gin_node
+    build: ./node
+    # restart: always
+    # command: node /node/index.js
+    # ports:
+    #   - 3000:3000
+
+  nginx:
+    container_name: gin_nginx
+    image: nginx:latest
+    volumes:
+      #     - ./src:/usr/share/nginx/html
+      - ./docker/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - node
+    ports:
+      - 3000:80
